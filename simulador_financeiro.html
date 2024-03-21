@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro-Berry.Bite</title>
+</head>
+
+<body>
+    <h1>Simulador Financeiro</h1>
+    Média de Produção por safra em (kg): <input type="text" id="input_producao"> <br>
+    Valor de uma caixa de morango (R$): <input type="text" id="input_caixaMorango"> <br>
+    Valor arrecadado em uma safra(R$): <input type="text" id="input_valorSafra"> <br>
+    Perda de safra por falta de irrigação(Kg) <input type="text" id="input_perdaIrrig"> <br>
+    Perda de safra por variação de temperatura(Kg): <input type="text" id="input_perdaTemperatura"> <br>
+    Tamanho do terreno(m²): <input type="text" id="input_tamanhoTerreno"> <br>
+    Custo geral da manutenção da estufa por safra(R$): <input type="text" id="input_custoEstufa"> <br>
+    <button onclick="calcular()">Calcular seu investimento</button>
+    <div id="div_mensagem"></div>
+</body>
+
+</html>
+
+<script>
+
+    var produção = 0;
+    var valorSafra = 0;
+    var caixaMorango = 0;
+    var perdaIrrig = 0;
+    var perdaTemperatura = 0;
+    var custoEstufa = 0;
+    var tamanhoTerreno = 0;
+
+    function calcular() {
+
+        var produção = Number(input_producao.value);
+        var caixaMorango = Number(input_caixaMorango.value);
+        var valorSafra = Number(input_valorSafra.value);
+        var perdaIrrig = Number(input_perdaIrrig.value);
+        var perdaTemperatura = Number(input_perdaTemperatura.value);
+        var custoEstufa = Number(input_custoEstufa.value);
+        var tamanhoTerreno = Number(input_tamanhoTerreno.value)
+
+        var bruto = produção * (valorSafra / caixaMorango);
+        var perdas = produção - (perdaIrrig + perdaTemperatura)
+        var totalPerdas = custoEstufa + perdas;
+        var qtdSensores = tamanhoTerreno * 20
+        var investimentoTotal = qtdSensores * 250
+
+        var liquido = bruto - totalPerdas
+
+        div_mensagem.innerHTML = (`O valor bruto da sua produção é de R$${bruto} e o valor liquido é R$${liquido} , calculamos que durante uma safra ocorre uma perda total de R$${totalPerdas}, para o tamanho do terreno seriam necessários o uso de ${qtdSensores} sensores, o que geraria um investimento de R$${investimentoTotal}`)
+    }
+
+
+
+</script>
